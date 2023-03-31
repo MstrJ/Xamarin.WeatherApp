@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Weather.MainPage"
+             NavigationPage.HasNavigationBar="False"
+             
+             BackgroundColor="LightSkyBlue"
+             BackgroundImageSource="{Binding ImgBg}"
+             >
+    <RelativeLayout Margin="6 , 0">
+        <ActivityIndicator
+            Color="white"
+            x:Name="activityIndicator"
+            IsVisible="true" IsRunning="false"
+            RelativeLayout.XConstraint="150"
+            RelativeLayout.YConstraint="72">
+
+        </ActivityIndicator>
+        <Frame CornerRadius="10" x:Name="searchFrame" BackgroundColor="#949393" Padding="-10,0,0,0" Margin="5,0,0,0"                    
+                     RelativeLayout.XConstraint="0"
+                     RelativeLayout.YConstraint="18"
+               WidthRequest="310">
+            
+            <StackLayout Orientation="Horizontal" >
+                
+                <SearchBar x:Name="searchBar"  Placeholder="..." 
+                           HeightRequest="36"  Margin="0,0,0,0"
+                           WidthRequest="215" BackgroundColor="Transparent" 
+                           PlaceholderColor="#cecbcb" 
+                           CancelButtonColor="#EBEBEB"
+                           TextColor="#EBEBEB"
+                           ></SearchBar>
+            <Button Text="Search" Clicked="Button_Clicked"
+                     RelativeLayout.XConstraint="270"
+                    BackgroundColor="Transparent"
+                    BorderWidth="2"
+                    BorderColor="AliceBlue"
+                    BorderRadius="11"
+                     RelativeLayout.YConstraint="24"></Button>
+            </StackLayout>
+        </Frame>
+        <ImageButton x:Name="imgDots" Source="Info.png"  Aspect="AspectFit"  HeightRequest="36"
+                     RelativeLayout.XConstraint="310"
+                     BackgroundColor="Transparent"
+                     RelativeLayout.YConstraint="24"
+                     Clicked="imgButton_Clicked"
+                   ></ImageButton>
+
+        <StackLayout Orientation="Horizontal"
+                    RelativeLayout.XConstraint="0"
+                     RelativeLayout.YConstraint="110"
+                     >
+            <Label Text="City" x:Name="LCity"
+               Margin="5,0,0,0"
+                     FontSize="38"
+                     TextColor="white"
+                     FontAttributes="bold"
+              >
+            </Label> 
+            <Image Source="locationIcon.png"
+                              Margin="5,0,0,0"
+               HeightRequest="22"
+               WidthRequest="22"
+               IsVisible="{Binding IsLocationOn}"
+               >
+
+            </Image>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0}"
+           RelativeLayout.YConstraint="190">
+            <Label Text="0" x:Name="LTemp"
+           FontSize="100"
+           TextColor="white">
+            </Label>
+
+            <Label Text="°" x:Name="LTempType" FontSize="52"
+           TextColor="white"
+                   Padding="0,18,0,0"
+           FontAttributes="bold">
+            </Label>
+
+
+        </StackLayout>
+        <Label Text="desc"
+                     RelativeLayout.XConstraint="10"
+                     RelativeLayout.YConstraint="305"
+                     FontSize="20"
+                     TextColor="white"
+               x:Name="Ldescription"
+               FontAttributes="bold"
+              >
+        </Label>
+        <Label Text="data / temp"
+                     RelativeLayout.XConstraint="10"
+                     RelativeLayout.YConstraint="340"
+                     FontSize="16"
+                     TextColor="white"
+               FontAttributes="None"
+               x:Name="LShortInfo"
+              >
+        </Label>
+
+        <ListView x:Name="listView" IsPullToRefreshEnabled="True"
+                  IsRefreshing="False"  HasUnevenRows="True" 
+                   SeparatorColor="Transparent"
+                  ItemTapped="listView_ItemTapped"
+                     RelativeLayout.XConstraint="0"
+                     RelativeLayout.YConstraint="410"
+                  HeightRequest="400"
+                  Refreshing="listView_Refreshing"
+    
+                  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        <StackLayout  HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="10" Padding="0,8,0,6" >
+                            <Label Text="{Binding Day}" FontSize="16" TextColor="white"/>
+                            <Image Source="{Binding Img}" HeightRequest="28" WidthRequest="28"/>
+                            <Label Text="{Binding WeatherName}" FontSize="15" TextColor="white"/>
+                            <Label Text="{Binding Temp}" FontSize="15" TextColor="white"/>
+                        </StackLayout> 
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--ItemSelected="listView_ItemSelected" ItemTapped="ViewCell_Tapped" Refreshing="listView_Refreshing"-->
+
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center"
+                     RelativeLayout.XConstraint="10"
+                     RelativeLayout.YConstraint="620"
+                     x:Name="LextraInfo1"
+                     
+                     >
+            <Label Text="Wilgotność" TextColor="white" FontSize="20" >
+            </Label>
+            <Label HorizontalOptions="Center" x:Name="LHumidity"  Text="0 %" TextColor="White" FontSize="24"></Label>
+        </StackLayout>         
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center"
+                     RelativeLayout.XConstraint="230"
+                     RelativeLayout.YConstraint="620"
+                     x:Name="LextraInfo2"
+                     
+                     >
+            <Label Text="Wiatr WSW" TextColor="white" FontSize="20" >
+            </Label>
+            <Label x:Name="LWindSpeed" HorizontalOptions="Center" Text="0 m/s" TextColor="White" FontSize="24"></Label>
+        </StackLayout>        
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center"
+                     RelativeLayout.XConstraint="130"
+                     RelativeLayout.YConstraint="620"
+                     x:Name="LextraInfo3"
+                     
+                     >
+            <Label Text="Pressure" TextColor="white" FontSize="20" >
+            </Label>
+            <Label x:Name="LPressure" HorizontalOptions="Center" Text="1000" TextColor="White" FontSize="24"></Label>
+        </StackLayout>
+    </RelativeLayout>
+
+</ContentPage> 

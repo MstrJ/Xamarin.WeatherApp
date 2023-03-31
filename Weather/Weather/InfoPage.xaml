@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Weather.InfoPage"
+             NavigationPage.HasBackButton="True"
+             BackgroundColor="#171717">
+    <ContentPage.Content>
+        <StackLayout Padding="12" 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand">
+            <Label x:Name="lbGithub" FontSize="22"  FontAttributes="Bold, Italic" Text="github.com/MstrJ" Padding="0,0,0,20" TextColor="White"></Label>
+            <Label FontSize="16" Text="Wykonane przez Jakub Kruliczak 3TP 2022/23" Padding="0, 0,0 , 10" TextColor="White"/>
+            <Label  FontSize="14"  Text="Aplikacja wykorzystuje api ze strony openweathermap" Padding="0,0,0,0"  TextColor="White"/>
+            <BoxView VerticalOptions="FillAndExpand" HeightRequest="200" Margin="0,150,0,0" /> 
+            <ImageButton Source="arrowDown.png" HeightRequest="52" WidthRequest="52" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" ></ImageButton>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
