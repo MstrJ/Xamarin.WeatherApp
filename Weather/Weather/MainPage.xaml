@@ -150,12 +150,12 @@
             <Label x:Name="LWindSpeed" HorizontalOptions="Center" Text="0 m/s" TextColor="White" FontSize="24"></Label>
         </StackLayout>        
         <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center"
-                     RelativeLayout.XConstraint="130"
+                     RelativeLayout.XConstraint="120"
                      RelativeLayout.YConstraint="620"
                      x:Name="LextraInfo3"
                      
                      >
-            <Label Text="Pressure" TextColor="white" FontSize="20" >
+            <Label Text="Ciśnienie" TextColor="white" FontSize="20" >
             </Label>
             <Label x:Name="LPressure" HorizontalOptions="Center" Text="1000" TextColor="White" FontSize="24"></Label>
         </StackLayout>

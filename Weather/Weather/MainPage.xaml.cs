@@ -103,7 +103,7 @@ namespace Weather
             LShortInfo.Text = $"{dataT.Day} {_weatherService.GetDayPL(dataT.DayOfWeek.ToString())} {Math.Round(weather.main.temp_max - 273.15)}° / {Math.Round(weather.main.temp_min - 273.15)}°";
             LHumidity.Text = $"{weather.main.humidity} %";
             LWindSpeed.Text = $"{weather.wind.speed} m/s ";
-            LPressure.Text = $"{weather.main.pressure}";
+            LPressure.Text = $"{weather.main.pressure} hPa";
             listView.ItemsSource = _weatherService.GetWeatherInfoFull();
             ChangeBg(weather,isLocation);
         }
