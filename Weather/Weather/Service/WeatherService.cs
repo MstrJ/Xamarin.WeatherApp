@@ -27,7 +27,7 @@ namespace Weather.Service
     {
         private WeatherObject _currentWeather { get; set; }
         private bool _network { get; set ; }
-        private string _key { get; set; } = "Secret";
+        private string _key { get; set; } = "secret";
         private SQLiteConnection _db { get; set; }
         private ObservableCollection<WeatherInfoFull> _weatherInfoFull = new ObservableCollection<WeatherInfoFull>();
 
@@ -104,6 +104,10 @@ namespace Weather.Service
         {
             return _network;
         }
+        public void SetNetwork(bool n)
+        {
+            _network = n;
+        }
         public async Task<WeatherObject> GetCurrentWeather()
         {
             var w = await Task.FromResult(_currentWeather);
@@ -113,9 +117,10 @@ namespace Weather.Service
         {
             var currentW = await Task.FromResult(GetValueAsync<WeatherObject>(url));
             currentW.Wait();
+            var cw = await currentW;
             if (currentW.Result.Item1 == null) return;
-            _currentWeather = currentW.Result.Item1;
-            _network = currentW.Result.Item2;
+            _network = cw.Item2;
+            _currentWeather = cw.Item1;
         }
 
         public ObservableCollection<WeatherInfoFull> GetWeatherInfoFull()
@@ -149,8 +154,9 @@ namespace Weather.Service
                 var h = dt.Hour;
                 if (h == 0) isToday = false;
 
-                tempMaxToday += (daysWeather.Item1.list[iday].main.temp_max) - 273;
-                tempMinToday += (daysWeather.Item1.list[iday].main.temp_min) - 273;
+                float temp = (daysWeather.Item1.list[iday].main.temp) - 273;
+                if (temp > tempMaxToday) tempMaxToday = temp;
+                if (temp < tempMinToday) tempMinToday = temp;
                 iconToday[iday] = daysWeather.Item1.list[iday].weather.First().icon;
                 descToday[iday] = daysWeather.Item1.list[iday].weather.First().description;
                 iday++;
