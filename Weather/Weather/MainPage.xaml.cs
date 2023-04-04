@@ -115,22 +115,22 @@ namespace Weather
         private async void Button_Clicked(object sender, EventArgs e)
         {
             string btnTxt = searchBar.Text;
-            if (string.IsNullOrEmpty(btnTxt)) return;
+            string txt = btnTxt.Trim();
+            if (string.IsNullOrWhiteSpace(txt)) return;
             var temp = await _weatherService.GetCurrentWeather();
-            var currentName = temp != null ? temp : null;
-            if (currentName != null)
+            if (temp != null)
             {
-                if (currentName.name.ToLower().Equals(btnTxt.ToLower()))
+                if (temp.name.ToLower().Trim().Equals(txt.ToLower()))
                 {
                     return;
                 }
             }
-            SetByCity();
+            SetByCity(txt);
         }
 
-        public void SetByCity()
+        public void SetByCity(string txt)
         {
-            string urlCity = $"https://api.openweathermap.org/data/2.5/weather?q={searchBar.Text}&appid={_weatherService.getKey()}&lang=pl";
+            string urlCity = $"https://api.openweathermap.org/data/2.5/weather?q={txt}&appid={_weatherService.getKey()}&lang=pl";
             var network = _weatherService.GetNetwork();
             if (!network)
             {

@@ -169,8 +169,8 @@ namespace Weather.Service
                                 .OrderByDescending(g => g.Count())
                                 .First()
                                 .Key;
-
-            WeatherInfoFullAdd(days[0], finalIconToday, finalDescToday, tempMaxToday / iday - 1, tempMinToday / iday - 1);
+            //if (iday == 0) iday = 1;
+            WeatherInfoFullAdd(days[0], finalIconToday, finalDescToday, tempMaxToday, tempMinToday);
 
             for (int j = 0; j < 2; j++)
             {
